@@ -54,7 +54,7 @@ router.put("/cancel",async(req,res) =>{
         }
 
         const update = await prisma.shipping.update({
-            where : {shippingId : parseInt(shippingId)},
+            where : {Id : parseInt(shippingId)},
             data : {status : "cancelled"}
         })
         return res.status(200).json(update)
