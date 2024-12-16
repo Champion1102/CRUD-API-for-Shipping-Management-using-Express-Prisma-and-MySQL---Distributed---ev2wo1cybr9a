@@ -25,25 +25,23 @@ router.post("/create",async(req,res) =>{
 
 router.get("/get",async(req,res) => {
     try {
-       const ships = await prisma.shipping.findMany();
-       return  res.status(200).json(ships)
-    } catch (error) {
+        const userId = parseInt(req.query.userId);
+
+        let shipments;
+        if (userId) {
+          shipments = await prisma.shipping.findMany({
+            where: { userId }
+          });
+        } else {
+          shipments = await prisma.shipping.findMany();
+        }
+      
+        res.status(200).json(shipments);
+          } catch (error) {
         return res.status(500).json({message : "Internal Server Error"})
     }
 })
 
-router.get("/get/:id",async(req,res) =>{
-    try {
-        const {id} = req.params;
-        const one = await prisma.shipping.findUnique({
-            where : {userId : parseInt(id)}
-        })
-       return res.status(200).json(one)
-        
-    } catch (error) {
-        return res.status(500).json({message : "Internal Server Error"})
-    }
-})
 
 router.put("/cancel",async(req,res) =>{
     try {
@@ -54,7 +52,7 @@ router.put("/cancel",async(req,res) =>{
         }
 
         const update = await prisma.shipping.update({
-            where : {Id : parseInt(shippingId)},
+            where : {id : parseInt(shippingId)},
             data : {status : "cancelled"}
         })
         return res.status(200).json(update)
