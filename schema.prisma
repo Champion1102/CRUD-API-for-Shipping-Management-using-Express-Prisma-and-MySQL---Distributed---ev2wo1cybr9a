@@ -17,7 +17,7 @@ datasource db {
 
 
 model shipping{
-    id Int @unique @default(autoincrement())
+    id Int @id @default(autoincrement())
     userId Int
     productId Int 
     count Int

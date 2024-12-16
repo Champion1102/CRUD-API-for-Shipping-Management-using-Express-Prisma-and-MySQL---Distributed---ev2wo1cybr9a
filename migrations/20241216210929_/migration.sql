@@ -6,5 +6,5 @@ CREATE TABLE `shipping` (
     `count` INTEGER NOT NULL,
     `Status` VARCHAR(191) NOT NULL DEFAULT 'pending',
 
-    UNIQUE INDEX `shipping_id_key`(`id`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
