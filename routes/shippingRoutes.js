@@ -9,6 +9,10 @@ router.post("/create",async(req,res) =>{
     try{
         const {userId ,productId, count} = req.body;
 
+        if (typeof userId !== "number" || typeof productId !== "number" || typeof count !== "number") {
+            return res.status(400).json({ error: "userId, productId, and count must be integers" });
+        }
+
         if(!userId || !productId || !count){
             return res.status(404).json({"error": "All fields required"})
         }
@@ -47,7 +51,7 @@ router.put("/cancel",async(req,res) =>{
     try {
         const { shippingId } = req.body;
 
-        if(!shippingId || shippingId === None ){
+        if(!shippingId){
            return res.status(404).json({ "error": "Missing shippingId"})
         }
 
